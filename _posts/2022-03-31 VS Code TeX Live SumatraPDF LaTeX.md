@@ -161,7 +161,13 @@ VS Code 配置 LaTeX 的核心扩展为 LaTeX Workshop，所有配置都由它�
 
 LuaLaTeX 对 TikZ 等包至关重要，建议配置；"pdflatex -> bibtex -> pdflatex*2" 和 "xelatex -> bibtex -> xelatex*2" 两个 Recipe 是用来编译使用 BibLaTeX 的 LaTeX 文档的，编译 BibLaTeX 需要完整的编译链，即 PDFLaTeX 或 XeLaTeX 编译一遍，BibTeX 编译一遍，PDFLaTeX 或 XeLaTeX 再编译两遍，这就是这两个 Recipe 的由来。这样配置后 VS Code 只要按下 Ctrl+S 保存键就会自动使用 PDFLaTeX 的 Recipe 进行项目生成；“-shell-escape”参数对应的是 \write18 TeX 命令，对很多包的编译都至关重要，如果这样配置后你的 LaTeX 在编译过程中仍然报了与 -shell-escape 或 \write18 的错误，请仔细查找到底是什么其他地方产生了错误，不必怀疑自己是不是配置得有问题了。
 
-上述配置同时已经指定了 VS Code LaTeX 默认使用外部的 PDF 查看器为 SumatraPDF，并且为 SumatraPDF 的反向搜索做好了准备。接下来只需打开 SumatraPDF，左上角三道杠->设置(S)->高级选项(A)...打开 SumatraPDF-setting.txt 记事本文件。参考
+上述配置同时已经指定了 VS Code LaTeX 默认使用外部的 PDF 查看器为 SumatraPDF，并且为 SumatraPDF 的反向搜索做好了准备。接下来只需打开 SumatraPDF，左上角三道杠->设置(S)->选项(O)...打开“SumatraPDF选项”窗口，并在“设置反向搜索命令行”一栏的文本框中输入
+
+>"D:\\Program Files\\Microsoft VS Code\\Code.exe" -r -g "%f:%l
+
+![img](2022-03/2023-07-01_191435.png)
+
+也可以左上角三道杠->设置(S)->高级选项(A)...打开 SumatraPDF-settings.txt，参考
 Customizing SumatraPDF 3.2 (sumatrapdfreader.org)
 https://www.sumatrapdfreader.org/settings/settings
 
@@ -183,6 +189,10 @@ InverseSearchCmdLine = "E:\\Program Files\\Microsoft VS Code\\Code.exe" -r -g "%
 ![img](2022-03/72d79e9872b8479c8e193b28d11c3c95.png)
 
 ## 更新日志 ChangeLog
+
+### 2023 年 7 月 1 日
+
+SumatraPDF 更新至 3.4.6 版本后在其左上角三道杠->设置(S)->选项(O)...中重新加入了“设置反向搜索命令行”，故本文重新加入了该简便方法。
 
 ### 2022 年 3 月 31 日
 
