@@ -34,7 +34,7 @@ cmake --install .
 ```
 其中，`qt-cmake`的位置在`D:\Qt\Qt 6.8.0\msvc2022_64\bin\qt-cmake.bat`，如果使用`cmake`则要注意检查所使用的`cmake`是否为该路径下的（如果环境变量 PATH 中有`cmake`则会使用 PATH 中的）。D:\Qt\6.8.0\msvc2022_64\plugins\sqldrivers 目录下初始只有 sqlite、mimer、odbc、psql（PostgreSQL）驱动。若未配置 Ninja，则在 cmake 指定 Generator 时也可指定 Visual Studio 17 2022，但存在 Bug，参考 [cl error D8016 when building oracle oci plugin for sql driver](https://bugreports.qt.io/browse/QTBUG-128670)、[Command line error D8016: '/O2' and '/RTC1' command-line options are incompatible](https://stackoverflow.com/questions/37007939/command-line-error-d8016-o2-and-rtc1-command-line-options-are-incompatibl)、[[CLion]Command line error D8016: '/O2' and '/RTC1' command-line options are incompatible](https://youtrack.jetbrains.com/issue/CPP-35594/CLionCommand-line-error-D8016-O2-and-RTC1-command-line-options-are-incompatible)。这个过程中会构建出qsqlite/qsqloci/qsqlodbc.dll/exp/lib/pdb，并将三个 DLL 和 PDB 文件安装到 D:\Qt\6.8.0\msvc2022_64\plugins\sqldrivers 目录下。其中，CMAKE_BUILD_TYPE 默认为 Release，在 Release 模式下只会构建 DLL、EXP、LIB 而不会构建 PDB（Program Debug Database）。
 4. 如果需要 Debug 模式，则在上一步 cmake 时需要指定`-DCMAKE_BUILD_TYPE=Debug`。此时后续构建会构建出 qsqlited/qsqlocid/qsqlodbcd.dll/exp/ilk/lib/pdb，并将三个 DLL 和 PDB 文件安装到上述目录下。
-![cmake-build-install](https://i-blog.csdnimg.cn/direct/7432fe34759640ad9bec8b6d5fa72421.jpeg#pic_center)
+![cmake-build-install](2024-10/2024-10-31_114827.jpg)
 6. 注意：在更新版本后，在使用 SQL Driver 的项目中，除了要重置缓存并重新加载项目以外，如果采用的不是 Qt Creator 而是 JetBrains CLion 等，则还要记得在 Qt 6.8.0 (MSVC 2022 64-bit) 中再次执行
 ```cmd
 windeployqt --qmldir qml <YourApp>.exe
